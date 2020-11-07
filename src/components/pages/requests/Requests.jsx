@@ -16,9 +16,9 @@ const getColor = (state) => {
   switch (state) {
     case "Submitted":
     case "Request Collection":
-      return "blue";
+      return "lightblue";
     case "Canceled":
-      return "red";
+      return "lightred";
     default:
       return "";
   }
@@ -31,7 +31,16 @@ const columns = [
     title: "State",
     field: "state",
     render: (rowData) => (
-      <p style={{ background: getColor(rowData.state) }}>{rowData.state}</p>
+      <p
+        style={{
+          padding: "0px 10px",
+          background: getColor(rowData.state),
+          borderRadius: "100px",
+          marginLeft: "10px",
+        }}
+      >
+        {rowData.state}
+      </p>
     ),
   },
   { title: "Address", field: "address" },
