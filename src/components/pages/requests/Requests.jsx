@@ -31,7 +31,7 @@ const columns = [
     title: "State",
     field: "state",
     render: (rowData) => (
-      <p style={{ background: getColor(rowData.state) }}>{rowData.state}</p>
+      <p style={{ color: getColor(rowData.state) }}>{rowData.state}</p>
     ),
   },
   { title: "Address", field: "address" },
