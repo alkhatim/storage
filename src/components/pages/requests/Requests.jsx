@@ -34,7 +34,7 @@ const columns = [
       <p
         style={{
           padding: "0px 10px",
-          background: getColor(rowData.state),
+          color: getColor(rowData.state),
           borderRadius: "100px",
           marginLeft: "10px",
         }}
