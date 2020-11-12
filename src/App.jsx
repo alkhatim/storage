@@ -21,6 +21,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import "./App.css";
 import "./common.css";
 import { loadUser } from "./actions/authActions";
+import Dashboard from "./components/pages/dashboard/Dashboard";
 
 const App = () => {
   store.dispatch(loadUser());
@@ -73,6 +74,12 @@ const App = () => {
             path="/document/:id"
             allow="All"
             component={Document}
+          />
+          <ProtectedRoute
+            exact
+            path="/dashboard"
+            allow={["Admin"]}
+            component={Dashboard}
           />
           <Route exact path="/forbidden" component={Forbidden} />
           <Route component={NotFound} />

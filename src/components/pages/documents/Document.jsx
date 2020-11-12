@@ -25,9 +25,13 @@ export const Document = (props) => {
             <p>Warehouse: {doc.warehouse}</p>
           </div>
           <div className="collapsible-body">
-            <ul>
+            <ul
+              style={{
+                borderLeft: "1px dashed",
+              }}
+            >
               {doc.files.map((file) => (
-                <li>{file}</li>
+                <li>-- {file}</li>
               ))}
             </ul>
           </div>

@@ -44,6 +44,11 @@ export const Navbar = () => {
               <i className="material-icons">menu</i>
             </a>
             <ul className="right hide-on-med-and-down">
+              {!isLoading && isLoggedIn && ["Admin"].includes(role) && (
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+              )}
               {!isLoading &&
                 isLoggedIn &&
                 ["PartnerUser", "PartnerAdmin", "Admin"].includes(role) && (
@@ -51,6 +56,7 @@ export const Navbar = () => {
                     <Link to="/warehouses">Warehouses</Link>
                   </li>
                 )}
+
               {!isLoading && isLoggedIn && (
                 <li>
                   <Link to="/documents">Documents</Link>

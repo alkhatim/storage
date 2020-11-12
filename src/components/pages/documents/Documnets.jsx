@@ -6,6 +6,7 @@ import DataTable from "../../controls/DataTable";
 const columns = [
   { title: "Barcode", field: "barcode" },
   { title: "Client", field: "client" },
+  { title: "State", field: "state" },
   { title: "Warehouse", field: "warehouse" },
 ];
 

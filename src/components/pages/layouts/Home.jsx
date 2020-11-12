@@ -12,9 +12,10 @@ const Home = () => {
   } else if (!isLoggedIn) {
     return <Redirect to="/login" />;
   } else {
+    //Todo redirect admin to dashboard and partner user to requests
     switch (role) {
       case "Admin":
-        return <Redirect to="/users" />;
+        return <Redirect to="/dashboard" />;
       case "ClientUser":
         return <Redirect to="/requests" />;
       case "ClientAdmin":
@@ -22,7 +23,7 @@ const Home = () => {
       case "PartnerUser":
         return <Redirect to="/requests" />;
       case "PartnerAdmin":
-        return <Redirect to="/requests" />;
+        return <Redirect to="/requestes" />;
       default:
         return <div></div>;
     }
