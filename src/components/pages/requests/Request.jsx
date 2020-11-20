@@ -68,7 +68,7 @@ export const Requests = (props) => {
   };
 
   const handleDateChange = (e) => {
-    console.log(e);
+    console.log(e.target.value);
     setRequest({ ...request, requestedDate: e.target.value });
   };
 
