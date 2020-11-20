@@ -86,8 +86,6 @@ export const Requests = (props) => {
   };
 
   const handleUpdate = async () => {
-    const res = window.confirm("Are you sure?");
-    if (!res) return;
     const result = await updateRequest(props.match.params.id, {
       ...request,
       requestedDate: new Date(request.requestedDate),
@@ -102,29 +100,21 @@ export const Requests = (props) => {
   };
 
   const handleSubmit = async () => {
-    const res = window.confirm("Are you sure?");
-    if (!res) return;
     const result = await submitRequest(props.match.params.id);
     if (result) setRequest(result);
   };
 
   const handleRequestCollection = async () => {
-    const res = window.confirm("Are you sure?");
-    if (!res) return;
     const result = await requestCollection(props.match.params.id);
     if (result) setRequest(result);
   };
 
   const handleCollect = async () => {
-    const res = window.confirm("Are you sure?");
-    if (!res) return;
     const result = await collectRequest(props.match.params.id);
     if (result) setRequest(result);
   };
 
   const handleDeliver = async () => {
-    const res = window.confirm("Are you sure?");
-    if (!res) return;
     const result = await deliverRequest(props.match.params.id);
     if (result) setRequest(result);
   };
