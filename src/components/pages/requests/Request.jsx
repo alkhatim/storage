@@ -67,8 +67,10 @@ export const Requests = (props) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
   };
 
-  const handleDateChange = (value) => {
-    setRequest({ ...request, requestedDate: value });
+  const handleDateChange = (e) => {
+    console.log(e);
+    console.log(e.target.value);
+    setRequest({ ...request, requestedDate: value.target.value });
   };
 
   const handleBoxRequestChange = (e) => {
