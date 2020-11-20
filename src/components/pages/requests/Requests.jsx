@@ -88,7 +88,7 @@ export const Requests = (props) => {
       <div className="ml-2 mt-3 mr-2">
         <DataTable columns={columns} data={requests} actions={actions} />
       </div>
-      {role === "ClientUser" && (
+      {["ClientUser", "ClientAdmin"].includes(role) && (
         <Fab icon="fa fa-plus" color="red" onClick={handleAdd} />
       )}
     </Fragment>
