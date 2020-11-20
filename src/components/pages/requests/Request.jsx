@@ -243,7 +243,7 @@ export const Requests = (props) => {
               onChange={handleChange}
             />
           )}
-          {["Request Collection", "Collected"].includes(request.state)(
+          {["Request Collection", "Collected"].includes(request.state) && (
             <TextInput
               type="text"
               name="collectionTrips"
