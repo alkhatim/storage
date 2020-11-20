@@ -23,7 +23,7 @@ export const Requests = (props) => {
   const [request, setRequest] = useState({
     id: 0,
     code: "",
-    requestedDate: new Date(),
+    requestedDate: new Date().toDateString(),
     state: "",
     address: "",
     boxRequests: [],
@@ -139,7 +139,7 @@ export const Requests = (props) => {
       break;
   }
 
-  const date = new Date(request.requestedDate).toLocaleDateString();
+  const date = new Date(request.requestedDate).toDateString();
 
   return (
     <Fragment>
