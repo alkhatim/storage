@@ -149,7 +149,7 @@ export const Requests = (props) => {
           gridTemplateColumns: "3fr 2fr",
         }}
       >
-        {request.id && (
+        {request.id !== 0 && (
           <div
             className="ml-2 mt-2"
             style={{ display: "flex", alignItems: "center" }}
@@ -236,7 +236,7 @@ export const Requests = (props) => {
           />
         </div>
       </div>
-      {request.id && (
+      {request.id !== 0 && (
         <div className="ml-2 mt-3 mr-2">
           <h4 className="mb-1">Box Requests</h4>
           <DataTable
@@ -246,7 +246,7 @@ export const Requests = (props) => {
           />
         </div>
       )}
-      {role === "ClientUser" && request.id && (
+      {role === "ClientUser" && request.id !== 0 && (
         <Fragment>
           <Fab icon="fa fa-plus" color="red" href="#addModal" />
           <div id="addModal" className="modal">
