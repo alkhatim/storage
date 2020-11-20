@@ -23,7 +23,7 @@ export const Requests = (props) => {
   const [request, setRequest] = useState({
     id: 0,
     code: "",
-    requestedDate: "",
+    requestedDate: new Date(),
     state: "",
     address: "",
     boxRequests: [],
@@ -64,6 +64,8 @@ export const Requests = (props) => {
   }, []);
 
   const handleChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
     setRequest({ ...request, [e.target.name]: e.target.value });
   };
 
