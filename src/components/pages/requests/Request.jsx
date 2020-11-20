@@ -132,8 +132,6 @@ export const Requests = (props) => {
       break;
   }
 
-  const date = new Date(request.requestedDate).toDateString();
-
   return (
     <Fragment>
       <div
@@ -224,7 +222,7 @@ export const Requests = (props) => {
             name="requestedDate"
             className="datepicker"
             onSelect={handleDateChange}
-            value={date}
+            value={request.requestedDate}
           />
         </div>
       </div>
@@ -238,31 +236,31 @@ export const Requests = (props) => {
           />
         </div>
       )}
-      {["ClientUser", "ClientAdmin"].includes(role) && request.id !== 0 && (
-        <Fragment>
+      <Fragment>
+        {["ClientUser", "ClientAdmin"].includes(role) && request.id !== 0 && (
           <Fab icon="fa fa-plus" color="red" href="#addModal" />
-          <div id="addModal" className="modal">
-            <div className="modal-content">
-              <h5 className="mb-2">New Box Request</h5>
-              <TextInput
-                type="text"
-                name="barcode"
-                label="Barcode"
-                value={newBoxRequest.box.barcode}
-                onChange={handleBoxRequestChange}
-              />
-            </div>
-            <div className="modal-footer">
-              <button
-                className="modal-close waves-effect waves-red btn-flat"
-                onClick={handleAddBoxRequest}
-              >
-                Confirm
-              </button>
-            </div>
+        )}
+        <div id="addModal" className="modal">
+          <div className="modal-content">
+            <h5 className="mb-2">New Box Request</h5>
+            <TextInput
+              type="text"
+              name="barcode"
+              label="Barcode"
+              value={newBoxRequest.box.barcode}
+              onChange={handleBoxRequestChange}
+            />
           </div>
-        </Fragment>
-      )}
+          <div className="modal-footer">
+            <button
+              className="modal-close waves-effect waves-red btn-flat"
+              onClick={handleAddBoxRequest}
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </Fragment>
     </Fragment>
   );
 };
