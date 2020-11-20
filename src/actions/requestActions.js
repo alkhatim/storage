@@ -38,9 +38,11 @@ export const submitRequest = async (id) => {
   }
 };
 
-export const deliverRequest = async (id) => {
+export const deliverRequest = async (id, trips) => {
   try {
-    const res = await http.put("/requests/" + id + "/state/" + 3);
+    const res = await http.put("/requests/" + id + "/state/" + 3, {
+      deliveryTrips: parseInt(trips),
+    });
     return res.data;
   } catch (error) {
     messages.error(error);
@@ -56,9 +58,11 @@ export const requestCollection = async (id) => {
   }
 };
 
-export const collectRequest = async (id) => {
+export const collectRequest = async (id, trips) => {
   try {
-    const res = await http.put("/requests/" + id + "/state/" + 5);
+    const res = await http.put("/requests/" + id + "/state/" + 5, {
+      collectionTrips: parseInt(trips),
+    });
     return res.data;
   } catch (error) {
     messages.error(error);

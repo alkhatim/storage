@@ -109,12 +109,18 @@ export const Requests = (props) => {
   };
 
   const handleCollect = async () => {
-    const result = await collectRequest(props.match.params.id);
+    const result = await collectRequest(
+      props.match.params.id,
+      request.collectionTrips
+    );
     if (result) setRequest(result);
   };
 
   const handleDeliver = async () => {
-    const result = await deliverRequest(props.match.params.id);
+    const result = await deliverRequest(
+      props.match.params.id,
+      request.deliveryTrips
+    );
     if (result) setRequest(result);
   };
 
