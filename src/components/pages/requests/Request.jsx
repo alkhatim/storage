@@ -138,8 +138,6 @@ export const Requests = (props) => {
       break;
   }
 
-  const date = new Date(request.requestedDate).toLocaleDateString();
-
   return (
     <Fragment>
       <div
@@ -231,7 +229,7 @@ export const Requests = (props) => {
             name="requestedDate"
             className="datepicker"
             onSelect={handleDateChange}
-            value={date}
+            value={request.requestedDate}
           />
         </div>
       </div>
