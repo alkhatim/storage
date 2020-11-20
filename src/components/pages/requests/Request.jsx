@@ -68,9 +68,7 @@ export const Requests = (props) => {
   };
 
   const handleDateChange = (e) => {
-    console.log(e);
-    console.log(e.target.value);
-    setRequest({ ...request, requestedDate: value.target.value });
+    setRequest({ ...request, requestedDate: e.target.value });
   };
 
   const handleBoxRequestChange = (e) => {
@@ -92,6 +90,7 @@ export const Requests = (props) => {
     if (!res) return;
     const result = await updateRequest(props.match.params.id, {
       ...request,
+      requestedDate: new Date(request.requestedDate),
       barcodes: [
         ...request.boxRequests.map((req) => ({
           barcode: req.box.barcode,
@@ -139,6 +138,8 @@ export const Requests = (props) => {
       stateColor = "lightgreen";
       break;
   }
+
+  const date = new Date(request.requestedDate).toLocaleDateString();
 
   return (
     <Fragment>
@@ -231,7 +232,7 @@ export const Requests = (props) => {
             name="requestedDate"
             className="datepicker"
             onSelect={handleDateChange}
-            value={request.requestedDate}
+            value={date}
           />
         </div>
       </div>
