@@ -10,9 +10,10 @@ import {
   validateBox,
 } from "../../../actions/requestActions";
 import DataTable from "./../../controls/DataTable";
-import Fab from "./../../controls/Fab";
 import TextInput from "../../controls/TextInput";
+import messages from "../../../services/messages";
 import M from "materialize-css";
+
 const columns = [
   { title: "Barcode", field: "box.barcode" },
   { title: "Client", field: "box.client.name" },
