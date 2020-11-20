@@ -13,9 +13,9 @@ import Fab from "./../../controls/Fab";
 import TextInput from "../../controls/TextInput";
 import M from "materialize-css";
 const columns = [
-  { title: "Barcode", field: "document.barcode" },
-  { title: "Client", field: "document.client.name" },
-  { title: "Warehouse", field: "document.warehouse.name" },
+  { title: "Barcode", field: "box.barcode" },
+  { title: "Client", field: "box.client.name" },
+  { title: "Warehouse", field: "box.warehouse.name" },
   { title: "State", field: "state" },
 ];
 
@@ -25,10 +25,11 @@ export const Requests = (props) => {
     code: "",
     requestedDate: "",
     state: "",
-    documentRequests: [],
+    address: "",
+    boxRequests: [],
   });
-  const [newDocumentRequest, setNewDocumentRequest] = useState({
-    document: {},
+  const [newBoxRequest, setNewBoxRequest] = useState({
+    box: {},
   });
 
   const role = useSelector((store) => store.authReducer.user.role);
@@ -40,8 +41,8 @@ export const Requests = (props) => {
       onClick: async (event, data) => {
         setRequest({
           ...request,
-          documentRequests: request.documentRequests.filter(
-            (doc) => doc.document.barcode !== data.document.barcode
+          boxRequests: request.boxRequests.filter(
+            (box) => box.box.barcode !== data.box.barcode
           ),
         });
       },
@@ -66,17 +67,17 @@ export const Requests = (props) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
   };
 
-  const handleDocumentRequestChange = (e) => {
-    setNewDocumentRequest({
-      ...newDocumentRequest,
-      document: { ...newDocumentRequest.document, barcode: e.target.value },
+  const handleBoxRequestChange = (e) => {
+    setNewBoxRequest({
+      ...newBoxRequest,
+      box: { ...newBoxRequest.box, barcode: e.target.value },
     });
   };
 
-  const handleAddDocumentRequest = async () => {
+  const handleAddBoxRequest = async () => {
     setRequest({
       ...request,
-      documentRequests: [...request.documentRequests, newDocumentRequest],
+      boxRequests: [...request.boxRequests, newBoxRequest],
     });
   };
 
@@ -86,8 +87,8 @@ export const Requests = (props) => {
     const result = await updateRequest(props.match.params.id, {
       ...request,
       barcodes: [
-        ...request.documentRequests.map((req) => ({
-          barcode: req.document.barcode,
+        ...request.boxRequests.map((req) => ({
+          barcode: req.box.barcode,
           error: "",
         })),
       ],
@@ -227,10 +228,10 @@ export const Requests = (props) => {
       </div>
       {request.id && (
         <div className="ml-2 mt-3 mr-2">
-          <h4 className="mb-1">Document Requests</h4>
+          <h4 className="mb-1">Box Requests</h4>
           <DataTable
             columns={columns}
-            data={request.documentRequests}
+            data={request.boxRequests}
             actions={actions}
           />
         </div>
@@ -240,19 +241,19 @@ export const Requests = (props) => {
           <Fab icon="fa fa-plus" color="red" href="#addModal" />
           <div id="addModal" className="modal">
             <div className="modal-content">
-              <h5 className="mb-2">New document Request</h5>
+              <h5 className="mb-2">New Box Request</h5>
               <TextInput
                 type="text"
                 name="barcode"
                 label="Barcode"
-                value={newDocumentRequest.document.barcode}
-                onChange={handleDocumentRequestChange}
+                value={newBoxRequest.box.barcode}
+                onChange={handleBoxRequestChange}
               />
             </div>
             <div className="modal-footer">
               <button
                 className="modal-close waves-effect waves-red btn-flat"
-                onClick={handleAddDocumentRequest}
+                onClick={handleAddBoxRequest}
               >
                 Confirm
               </button>
