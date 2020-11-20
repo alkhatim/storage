@@ -27,6 +27,8 @@ export const Requests = (props) => {
     state: "New",
     address: "",
     boxRequests: [],
+    collectionTrips: "",
+    deliveryTrips: "",
   });
   const [newBoxRequest, setNewBoxRequest] = useState({
     box: {},
@@ -159,42 +161,46 @@ export const Requests = (props) => {
             Save
             <i className="fa fa-floppy-o fa-2x ml-1" />
           </button>
-          {request.state === "New" && (
-            <button
-              className="waves-effect waves-light btn"
-              onClick={handleSubmit}
-            >
-              Submit
-              <i className="fa fa-check fa-2x ml-1" />
-            </button>
-          )}
-          {request.state === "Submitted" && (
-            <button
-              className="waves-effect waves-light btn"
-              onClick={handleDeliver}
-            >
-              Deliver
-              <i className="fa fa-check fa-2x" />
-            </button>
-          )}
-          {request.state === "Delivered" && (
-            <button
-              className="waves-effect waves-light btn"
-              onClick={handleRequestCollection}
-            >
-              Request Collection
-              <i className="fa fa-check fa-2x" />
-            </button>
-          )}
-          {request.state === "Request Collection" && (
-            <button
-              className="waves-effect waves-light btn"
-              onClick={handleCollect}
-            >
-              Collect
-              <i className="fa fa-check fa-2x" />
-            </button>
-          )}
+          {request.state === "New" &&
+            ["ClientUser", "ClientAdmin", "Admin"].includes(role) && (
+              <button
+                className="waves-effect waves-light btn"
+                onClick={handleSubmit}
+              >
+                Submit
+                <i className="fa fa-check fa-2x ml-1" />
+              </button>
+            )}
+          {request.state === "Submitted" &&
+            ["PartnerUser", "PartnerAdmin", "Admin"].includes(role) && (
+              <button
+                className="waves-effect waves-light btn"
+                onClick={handleDeliver}
+              >
+                Deliver
+                <i className="fa fa-check fa-2x" />
+              </button>
+            )}
+          {request.state === "Delivered" &&
+            ["ClientUser", "ClientAdmin", "Admin"].includes(role) && (
+              <button
+                className="waves-effect waves-light btn"
+                onClick={handleRequestCollection}
+              >
+                Request Collection
+                <i className="fa fa-check fa-2x" />
+              </button>
+            )}
+          {request.state === "Request Collection" &&
+            ["PartnerUser", "PartnerAdmin", "Admin"].includes(role) && (
+              <button
+                className="waves-effect waves-light btn"
+                onClick={handleCollect}
+              >
+                Collect
+                <i className="fa fa-check fa-2x" />
+              </button>
+            )}
         </div>
       </div>
       <div
@@ -219,6 +225,28 @@ export const Requests = (props) => {
             onChange={handleChange}
             value={request.requestedDate}
           />
+        </div>
+        <div>
+          {request.state !== "New" && (
+            <TextInput
+              type="text"
+              name="deliveryTrips"
+              label="Number Of Delivery Trips"
+              readOnly={request.state !== "Submitted"}
+              value={request.deliveryTrips}
+              onChange={handleChange}
+            />
+          )}
+          {["Request Collection", "Collected"].includes(request.state)(
+            <TextInput
+              type="text"
+              name="collectionTrips"
+              readOnly={request.state === "Collected"}
+              label="Number Of Collection Trips"
+              value={request.collectionTrips}
+              onChange={handleChange}
+            />
+          )}
         </div>
       </div>
       {request.id !== 0 && (
