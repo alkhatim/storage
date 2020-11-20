@@ -23,7 +23,7 @@ export const Requests = (props) => {
   const [request, setRequest] = useState({
     id: 0,
     code: "",
-    requestedDate: new Date(),
+    requestedDate: new Date().toISOString().split("T")[0],
     state: "New",
     address: "",
     boxRequests: [],
@@ -58,7 +58,12 @@ export const Requests = (props) => {
       if (props.match.params.id) {
         const data = await getRequest(props.match.params.id);
         if (data)
-          setRequest({ ...data, requestedDate: new Date(data.requestedDate) });
+          setRequest({
+            ...data,
+            requestedDate: new Date(data.requestedDate)
+              .toISOString()
+              .split("T")[0],
+          });
       }
     };
     fetch();
@@ -85,7 +90,7 @@ export const Requests = (props) => {
   const handleUpdate = async () => {
     const result = await updateRequest({
       ...request,
-      requestedDate: request.requestedDate,
+      requestedDate: new Date(request.requestedDate),
       barcodes: [
         ...request.boxRequests.map((req) => ({
           barcode: req.box.barcode,
