@@ -143,22 +143,24 @@ export const Requests = (props) => {
           gridTemplateColumns: "3fr 2fr",
         }}
       >
-        <div
-          className="ml-2 mt-2"
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <b>#{request.code}</b>
+        {request.id && (
           <div
-            style={{
-              padding: "0px 10px",
-              background: stateColor,
-              borderRadius: "100px",
-              marginLeft: "10px",
-            }}
+            className="ml-2 mt-2"
+            style={{ display: "flex", alignItems: "center" }}
           >
-            {request.state}
+            <b>#{request.code}</b>
+            <div
+              style={{
+                padding: "0px 10px",
+                background: stateColor,
+                borderRadius: "100px",
+                marginLeft: "10px",
+              }}
+            >
+              {request.state}
+            </div>
           </div>
-        </div>
+        )}
         <div
           className="mr-2 mt-5"
           style={{ display: "grid", gridTemplateColumns: "3fr 3fr" }}
@@ -223,7 +225,11 @@ export const Requests = (props) => {
             type="text"
             className="datepicker"
             onChange={handleChange}
-            value={new Date(request.requestedDate).toLocaleDateString()}
+            value={
+              request.requestedDate
+                ? new Date(request.requestedDate).toLocaleDateString()
+                : ""
+            }
           />
         </div>
       </div>
