@@ -20,7 +20,7 @@ export const getRequest = async (id) => {
   }
 };
 
-export const updateRequest = async (id, request) => {
+export const updateRequest = async (request) => {
   try {
     const res = await http.post("/requests/", request);
     return res.data;

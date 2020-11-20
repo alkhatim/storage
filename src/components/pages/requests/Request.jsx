@@ -82,7 +82,7 @@ export const Requests = (props) => {
   };
 
   const handleUpdate = async () => {
-    const result = await updateRequest(props.match.params.id, {
+    const result = await updateRequest({
       ...request,
       requestedDate: request.requestedDate,
       barcodes: [
