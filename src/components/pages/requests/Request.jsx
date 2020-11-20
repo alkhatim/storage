@@ -7,6 +7,7 @@ import {
   collectRequest,
   requestCollection,
   submitRequest,
+  validateBox,
 } from "../../../actions/requestActions";
 import DataTable from "./../../controls/DataTable";
 import Fab from "./../../controls/Fab";
@@ -29,9 +30,6 @@ export const Requests = (props) => {
     boxRequests: [],
     collectionTrips: "",
     deliveryTrips: "",
-  });
-  const [newBoxRequest, setNewBoxRequest] = useState({
-    box: {},
   });
 
   const role = useSelector((store) => store.authReducer.user.role);
@@ -71,20 +69,6 @@ export const Requests = (props) => {
 
   const handleChange = (e) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
-  };
-
-  const handleBoxRequestChange = (e) => {
-    setNewBoxRequest({
-      ...newBoxRequest,
-      box: { ...newBoxRequest.box, barcode: e.target.value },
-    });
-  };
-
-  const handleAddBoxRequest = async () => {
-    setRequest({
-      ...request,
-      boxRequests: [...request.boxRequests, newBoxRequest],
-    });
   };
 
   const handleUpdate = async () => {
@@ -279,34 +263,32 @@ export const Requests = (props) => {
             columns={columns}
             data={request.boxRequests}
             actions={actions}
+            editable={{
+              onRowAdd: (newData) =>
+                new Promise(async (resolve, reject) => {
+                  try {
+                    const result = await validateBox({ barcode: newData });
+                    if (result.error) {
+                      messages.error(result.error);
+                      return resolve();
+                    }
+                    setRequest({
+                      ...request,
+                      boxRequests: [
+                        ...request.boxRequests,
+                        { barcode: newData, error: "" },
+                      ],
+                    });
+                    resolve();
+                  } catch (error) {
+                    messages.error(error);
+                    reject();
+                  }
+                }),
+            }}
           />
         </div>
       )}
-      <Fragment>
-        {["ClientUser", "ClientAdmin"].includes(role) && request.id !== 0 && (
-          <Fab icon="fa fa-plus" color="red" href="#addModal" />
-        )}
-        <div id="addModal" className="modal">
-          <div className="modal-content">
-            <h5 className="mb-2">New Box Request</h5>
-            <TextInput
-              type="text"
-              name="barcode"
-              label="Barcode"
-              value={newBoxRequest.box.barcode}
-              onChange={handleBoxRequestChange}
-            />
-          </div>
-          <div className="modal-footer">
-            <button
-              className="modal-close waves-effect waves-red btn-flat"
-              onClick={handleAddBoxRequest}
-            >
-              Confirm
-            </button>
-          </div>
-        </div>
-      </Fragment>
     </Fragment>
   );
 };

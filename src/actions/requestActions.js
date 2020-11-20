@@ -86,3 +86,12 @@ export const getBarcodes = async (prefix) => {
     messages.error(error);
   }
 };
+
+export const validateBox = async (box) => {
+  try {
+    const res = await http.post("/requests/validate/box", box);
+    return res.data;
+  } catch (error) {
+    messages.error(error);
+  }
+};
