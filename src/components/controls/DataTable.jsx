@@ -15,7 +15,7 @@ const DataTable = (props) => {
         },
       }}
       options={{
-        toolbar: false,
+        toolbar: true,
         actionsColumnIndex: -1,
         headerStyle: {
           fontSize: 20,
