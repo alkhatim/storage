@@ -35,7 +35,7 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <ProtectedRoute
             exact
-            path="/request/:id"
+            path="/request/:id?"
             allow="All"
             component={Request}
           />

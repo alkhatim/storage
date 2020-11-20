@@ -93,7 +93,7 @@ export const Requests = (props) => {
         })),
       ],
     });
-    if (result) setRequest(result);
+    if (result) props.history.push(`/request/${result.id}`);
   };
 
   const handleSubmit = async () => {
@@ -208,14 +208,14 @@ export const Requests = (props) => {
         className="mt-2 ml-2"
         style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
       >
-        <TextInput
-          type="text"
-          name="address"
-          label="Address"
-          value={request.address}
-          onChange={handleChange}
-        />
         <div>
+          <TextInput
+            type="text"
+            name="address"
+            label="Address"
+            value={request.address}
+            onChange={handleChange}
+          />
           <label htmlFor="date">Requested Date</label>
           <input
             id="date"
