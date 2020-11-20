@@ -249,7 +249,10 @@ export const Requests = (props) => {
               type="text"
               name="deliveryTrips"
               label="Number Of Delivery Trips"
-              readOnly={request.state !== "Submitted"}
+              readOnly={
+                request.state !== "Submitted" &&
+                ["PartnerUser", "PartnerAdmin", "Admin"].includes(role)
+              }
               value={request.deliveryTrips}
               onChange={handleChange}
             />
@@ -258,7 +261,10 @@ export const Requests = (props) => {
             <TextInput
               type="text"
               name="collectionTrips"
-              readOnly={request.state === "Collected"}
+              readOnly={
+                request.state === "Collected" &&
+                ["PartnerUser", "PartnerAdmin", "Admin"].includes(role)
+              }
               label="Number Of Collection Trips"
               value={request.collectionTrips}
               onChange={handleChange}
