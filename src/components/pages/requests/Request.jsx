@@ -235,7 +235,7 @@ export const Requests = (props) => {
           />
         </div>
       )}
-      {role === "ClientUser" && request.id !== 0 && (
+      {["ClientUser", "ClientAdmin"].includes(role) && request.id !== 0 && (
         <Fragment>
           <Fab icon="fa fa-plus" color="red" href="#addModal" />
           <div id="addModal" className="modal">
