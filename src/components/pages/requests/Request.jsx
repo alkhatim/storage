@@ -86,6 +86,7 @@ export const Requests = (props) => {
     if (!res) return;
     const result = await updateRequest(props.match.params.id, {
       ...request,
+      requestedDate: new Date(request.requestedDate),
       barcodes: [
         ...request.boxRequests.map((req) => ({
           barcode: req.box.barcode,
