@@ -67,11 +67,6 @@ export const Requests = (props) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
   };
 
-  const handleDateChange = (e) => {
-    console.log(e.target.value);
-    setRequest({ ...request, requestedDate: e.target.value });
-  };
-
   const handleBoxRequestChange = (e) => {
     setNewBoxRequest({
       ...newBoxRequest,
@@ -219,10 +214,9 @@ export const Requests = (props) => {
           <label htmlFor="date">Requested Date</label>
           <input
             id="date"
-            type="text"
+            type="date"
             name="requestedDate"
-            className="datepicker"
-            onSelect={handleDateChange}
+            onChange={handleChange}
             value={request.requestedDate}
           />
         </div>
