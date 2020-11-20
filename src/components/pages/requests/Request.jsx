@@ -99,7 +99,12 @@ export const Requests = (props) => {
       ],
     });
     if (result) {
-      setRequest(result);
+      setRequest({
+        ...result,
+        requestedDate: new Date(result.requestedDate)
+          .toISOString()
+          .split("T")[0],
+      });
       props.history.push(`/request/${result.id}`);
     }
   };
