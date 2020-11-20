@@ -139,24 +139,23 @@ export const Requests = (props) => {
           gridTemplateColumns: "3fr 2fr",
         }}
       >
-        {request.id !== 0 && (
+        <div
+          className="ml-2 mt-2"
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          {request.id !== 0 && <b>#{request.code}</b>}
           <div
-            className="ml-2 mt-2"
-            style={{ display: "flex", alignItems: "center" }}
+            style={{
+              padding: "0px 10px",
+              background: stateColor,
+              borderRadius: "100px",
+              marginLeft: "10px",
+            }}
           >
-            <b>#{request.code}</b>
-            <div
-              style={{
-                padding: "0px 10px",
-                background: stateColor,
-                borderRadius: "100px",
-                marginLeft: "10px",
-              }}
-            >
-              {request.state}
-            </div>
+            {request.state || "New Request"}
           </div>
-        )}
+        </div>
+
         <div
           className="mr-2 mt-5"
           style={{ display: "grid", gridTemplateColumns: "3fr 3fr" }}
