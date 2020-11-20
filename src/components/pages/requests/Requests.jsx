@@ -1,15 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
-import TextInput from "../../controls/TextInput";
 import { useSelector } from "react-redux";
-import {
-  getRequests,
-  newRequest,
-  deliverRequest,
-  cancelRequest,
-} from "../../../actions/requestActions";
+import { getRequests, cancelRequest } from "../../../actions/requestActions";
 import DataTable from "./../../controls/DataTable";
 import Fab from "./../../controls/Fab";
-import M from "materialize-css";
 import messages from "../../../services/messages";
 
 const getColor = (state) => {
@@ -79,24 +72,16 @@ export const Requests = (props) => {
 
   useEffect(() => {
     const fetch = async () => {
-      const modal = document.querySelectorAll(".modal");
-      M.Modal.init(modal, {});
-      const date = document.querySelectorAll(".datepicker");
-      M.Datepicker.init(date, {});
       const data = await getRequests();
       setRequests(data);
     };
     fetch();
   }, []);
 
-  const handleChange = async (e) => {
-    setRequest({ ...request, [e.target.name]: e.target.value });
+  const handleAdd = async () => {
+    props.history.push("/request");
   };
 
-  const handleAdd = async () => {
-    const result = await newRequest(request);
-    if (result) setRequests([...requests, { ...result, count: 0 }]);
-  };
   return (
     <Fragment>
       <h4 className="ml-2">Requests</h4>
@@ -104,39 +89,7 @@ export const Requests = (props) => {
         <DataTable columns={columns} data={requests} actions={actions} />
       </div>
       {role === "ClientUser" && (
-        <Fragment>
-          <Fab icon="fa fa-plus" color="red" href="#addModal" />
-
-          <div id="addModal" className="modal">
-            <div className="modal-content mb-6">
-              <h5 className="mb-6">New Request</h5>
-              <TextInput
-                type="text"
-                name="address"
-                label="Address"
-                value={request.address}
-                onChange={handleChange}
-              />
-              <label htmlFor="date">Select Date</label>
-              <input
-                id="date"
-                type="text"
-                className="datepicker"
-                onChange={handleChange}
-                value={request.requestedDate}
-              ></input>
-            </div>
-            <div className="modal-footer">
-              <a
-                href="#!"
-                className="modal-close waves-effect waves-green btn-flat"
-                onClick={handleAdd}
-              >
-                Confirm
-              </a>
-            </div>
-          </div>
-        </Fragment>
+        <Fab icon="fa fa-plus" color="red" onClick={handleAdd} />
       )}
     </Fragment>
   );

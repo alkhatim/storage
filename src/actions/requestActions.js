@@ -22,7 +22,7 @@ export const getRequest = async (id) => {
 
 export const updateRequest = async (id, request) => {
   try {
-    const res = await http.put("/requests/" + id + "/documents", request);
+    const res = await http.post("/requests/", request);
     return res.data;
   } catch (error) {
     messages.error(error);
@@ -68,15 +68,6 @@ export const collectRequest = async (id) => {
 export const cancelRequest = async (id) => {
   try {
     const res = await http.put("/requests/" + id + "/state/" + 0);
-    return res.data;
-  } catch (error) {
-    messages.error(error);
-  }
-};
-
-export const newRequest = async (request) => {
-  try {
-    const res = await http.post("/requests", request);
     return res.data;
   } catch (error) {
     messages.error(error);

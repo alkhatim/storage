@@ -21,6 +21,7 @@ const columns = [
 
 export const Requests = (props) => {
   const [request, setRequest] = useState({
+    id: 0,
     code: "",
     requestedDate: "",
     state: "",
@@ -53,8 +54,10 @@ export const Requests = (props) => {
       M.Modal.init(modal, {});
       const date = document.querySelectorAll(".datepicker");
       M.Datepicker.init(date, {});
-      const data = await getRequest(props.match.params.id);
-      if (data) setRequest(data);
+      if (props.match.params.id) {
+        const data = await getRequest(props.match.params.id);
+        if (data) setRequest(data);
+      }
     };
     fetch();
   }, []);
@@ -83,7 +86,10 @@ export const Requests = (props) => {
     const result = await updateRequest(props.match.params.id, {
       ...request,
       barcodes: [
-        ...request.documentRequests.map((req) => req.document.barcode),
+        ...request.documentRequests.map((req) => ({
+          barcode: req.document.barcode,
+          error: "",
+        })),
       ],
     });
     if (result) setRequest(result);
@@ -201,6 +207,13 @@ export const Requests = (props) => {
         className="mt-2 ml-2"
         style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
       >
+        <TextInput
+          type="text"
+          name="address"
+          label="Address"
+          value={request.address}
+          onChange={handleChange}
+        />
         <div>
           <label htmlFor="date">Requested Date</label>
           <input
@@ -212,15 +225,17 @@ export const Requests = (props) => {
           />
         </div>
       </div>
-      <div className="ml-2 mt-3 mr-2">
-        <h4 className="mb-1">Document Requests</h4>
-        <DataTable
-          columns={columns}
-          data={request.documentRequests}
-          actions={actions}
-        />
-      </div>
-      {role === "ClientUser" && (
+      {request.id && (
+        <div className="ml-2 mt-3 mr-2">
+          <h4 className="mb-1">Document Requests</h4>
+          <DataTable
+            columns={columns}
+            data={request.documentRequests}
+            actions={actions}
+          />
+        </div>
+      )}
+      {role === "ClientUser" && request.id && (
         <Fragment>
           <Fab icon="fa fa-plus" color="red" href="#addModal" />
           <div id="addModal" className="modal">
