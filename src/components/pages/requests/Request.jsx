@@ -96,7 +96,10 @@ export const Requests = (props) => {
         })),
       ],
     });
-    if (result) props.history.push(`/request/${result.id}`);
+    if (result) {
+      setRequest(result);
+      props.history.push(`/request/${result.id}`);
+    }
   };
 
   const handleSubmit = async () => {
