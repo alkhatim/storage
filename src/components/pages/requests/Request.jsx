@@ -24,7 +24,7 @@ export const Requests = (props) => {
     id: 0,
     code: "",
     requestedDate: new Date(),
-    state: "",
+    state: "New",
     address: "",
     boxRequests: [],
   });
@@ -53,8 +53,6 @@ export const Requests = (props) => {
     const fetch = async () => {
       const modal = document.querySelectorAll(".modal");
       M.Modal.init(modal, {});
-      const date = document.querySelectorAll(".datepicker");
-      M.Datepicker.init(date, {});
       if (props.match.params.id) {
         const data = await getRequest(props.match.params.id);
         if (data) setRequest(data);
@@ -208,6 +206,7 @@ export const Requests = (props) => {
             type="text"
             name="address"
             label="Address"
+            readOnly={request.state !== "New"}
             value={request.address}
             onChange={handleChange}
           />
@@ -215,6 +214,7 @@ export const Requests = (props) => {
           <input
             id="date"
             type="date"
+            readOnly={request.state !== "New"}
             name="requestedDate"
             onChange={handleChange}
             value={request.requestedDate}

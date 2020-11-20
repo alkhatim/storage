@@ -35,8 +35,6 @@ export const Users = () => {
     const fetch = async () => {
       const modal = document.querySelectorAll(".modal");
       M.Modal.init(modal, {});
-      const date = document.querySelectorAll(".datepicker");
-      M.Datepicker.init(date, {});
       const data = await getUsers();
       setUsers(data);
     };
