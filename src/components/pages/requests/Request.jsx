@@ -57,7 +57,8 @@ export const Requests = (props) => {
       M.Modal.init(modal, {});
       if (props.match.params.id) {
         const data = await getRequest(props.match.params.id);
-        if (data) setRequest(data);
+        if (data)
+          setRequest({ ...data, requestedDate: new Date(data.requestedDate) });
       }
     };
     fetch();
