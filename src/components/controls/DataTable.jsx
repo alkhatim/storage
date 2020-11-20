@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import MaterialTable from "material-table";
 
 const DataTable = (props) => {
-  const { columns, data, actions } = props;
+  const { columns, data, actions, editable } = props;
   return (
     <MaterialTable
       columns={columns}
@@ -21,6 +21,7 @@ const DataTable = (props) => {
           fontSize: 20,
         },
       }}
+      editable={editable}
       {...props}
     />
   );
