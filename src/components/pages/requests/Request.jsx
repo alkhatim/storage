@@ -23,7 +23,7 @@ export const Requests = (props) => {
   const [request, setRequest] = useState({
     id: 0,
     code: "",
-    requestedDate: new Date().toDateString(),
+    requestedDate: new Date(),
     state: "",
     address: "",
     boxRequests: [],
@@ -68,6 +68,7 @@ export const Requests = (props) => {
   };
 
   const handleDateChange = (e) => {
+    console.log(e);
     setRequest({ ...request, requestedDate: e.target.value });
   };
 
@@ -88,7 +89,7 @@ export const Requests = (props) => {
   const handleUpdate = async () => {
     const result = await updateRequest(props.match.params.id, {
       ...request,
-      requestedDate: new Date(request.requestedDate),
+      requestedDate: request.requestedDate,
       barcodes: [
         ...request.boxRequests.map((req) => ({
           barcode: req.box.barcode,
