@@ -75,8 +75,8 @@ export const Requests = (props) => {
 
   useEffect(() => {
     const fetch = async () => {
-      const modal = document.querySelectorAll(".collapsible");
-      M.Collapsible.init(modal, {});
+      // const modal = document.querySelectorAll(".collapsible");
+      // M.Collapsible.init(modal, {});
       const data = await getRequests();
       setRequests(data);
     };
@@ -98,7 +98,13 @@ export const Requests = (props) => {
 
   return (
     <Fragment>
-      <ul className="collapsible">
+      <DataTable columns={columns} data={newRequests} actions={actions} />
+      <DataTable columns={columns} data={submittedRequests} actions={actions} />
+      <DataTable columns={columns} data={deliveredRequests} actions={actions} />
+      <DataTable columns={columns} data={readyRequests} actions={actions} />
+      <DataTable columns={columns} data={collectedRequests} actions={actions} />
+      <DataTable columns={columns} data={cancelledRequests} actions={actions} />
+      {/* <ul className="collapsible">
         <li>
           <div className="collapsible-header">New Requests</div>
           <div className="collapsible-body">
@@ -155,7 +161,7 @@ export const Requests = (props) => {
             />
           </div>
         </li>
-      </ul>
+      </ul> */}
       {["ClientUser", "ClientAdmin"].includes(role) && (
         <Fab icon="fa fa-plus" color="red" onClick={handleAdd} />
       )}
