@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import TextInput from "../../controls/TextInput";
 import {
   getClientSettings,
   getPartnerSettings,
@@ -16,7 +17,7 @@ export const Settings = (props) => {
   useEffect(() => {
     const fetch = async () => {
       const tabs = document.querySelectorAll(".tabs");
-      M.Tabs.init(tabs, options);
+      M.Tabs.init(tabs, {});
       const clientData = await getClientSettings();
       const partnerData = await getPartnerSettings();
       if (clientData) setClientSettings(clientData);
@@ -216,7 +217,7 @@ export const Settings = (props) => {
             <div>
               <button
                 className="btn blue mr-1"
-                onClick={() => setpartnerReadOnly(!partnerReadOnly)}
+                onClick={() => setPartnerReadOnly(!partnerReadOnly)}
               >
                 Edit
                 <i className="fa fa-pencil fa-2x ml-1" />
