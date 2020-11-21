@@ -4,6 +4,7 @@ import { getRequests, cancelRequest } from "../../../actions/requestActions";
 import DataTable from "./../../controls/DataTable";
 import Fab from "./../../controls/Fab";
 import messages from "../../../services/messages";
+import M from "materialize-css";
 
 const getColor = (state) => {
   switch (state) {
@@ -74,6 +75,8 @@ export const Requests = (props) => {
 
   useEffect(() => {
     const fetch = async () => {
+      const modal = document.querySelectorAll(".collapsible");
+      M.Collapsible.init(modal, {});
       const data = await getRequests();
       setRequests(data);
     };
@@ -95,46 +98,64 @@ export const Requests = (props) => {
 
   return (
     <Fragment>
-      <h4 className="ml-2">New Requests</h4>
-      <div className="ml-2 mt-3 mr-2">
-        <DataTable columns={columns} data={newRequests} actions={actions} />
-      </div>
-      <h4 className="ml-2">Submitted Requests</h4>
-      <div className="ml-2 mt-3 mr-2">
-        <DataTable
-          columns={columns}
-          data={submittedRequests}
-          actions={actions}
-        />
-      </div>
-      <h4 className="ml-2">Delivered Requests</h4>
-      <div className="ml-2 mt-3 mr-2">
-        <DataTable
-          columns={columns}
-          data={deliveredRequests}
-          actions={actions}
-        />
-      </div>
-      <h4 className="ml-2">Ready For Collection</h4>
-      <div className="ml-2 mt-3 mr-2">
-        <DataTable columns={columns} data={readyRequests} actions={actions} />
-      </div>
-      <h4 className="ml-2">Collected Requests</h4>
-      <div className="ml-2 mt-3 mr-2">
-        <DataTable
-          columns={columns}
-          data={collectedRequests}
-          actions={actions}
-        />
-      </div>
-      <h4 className="ml-2">Cancelled Requests</h4>
-      <div className="ml-2 mt-3 mr-2">
-        <DataTable
-          columns={columns}
-          data={cancelledRequests}
-          actions={actions}
-        />
-      </div>
+      <ul className="collapsible">
+        <li>
+          <div className="collapsible-header">New Requests</div>
+          <div className="collapsible-body">
+            <DataTable columns={columns} data={newRequests} actions={actions} />
+          </div>
+        </li>
+        <li>
+          <div className="collapsible-header">Submitted Requests</div>
+          <div className="collapsible-body">
+            <DataTable
+              columns={columns}
+              data={submittedRequests}
+              actions={actions}
+            />
+          </div>
+        </li>
+        <li>
+          <div className="collapsible-header">Delivered Requests</div>
+          <div className="collapsible-body">
+            <DataTable
+              columns={columns}
+              data={deliveredRequests}
+              actions={actions}
+            />
+          </div>
+        </li>
+        <li>
+          <div className="collapsible-header">Ready For Collection</div>
+          <div className="collapsible-body">
+            <DataTable
+              columns={columns}
+              data={readyRequests}
+              actions={actions}
+            />
+          </div>
+        </li>
+        <li>
+          <div className="collapsible-header">Collected Requests</div>
+          <div className="collapsible-body">
+            <DataTable
+              columns={columns}
+              data={collectedRequests}
+              actions={actions}
+            />
+          </div>
+        </li>
+        <li>
+          <div className="collapsible-header">Cancelled Requests</div>
+          <div className="collapsible-body">
+            <DataTable
+              columns={columns}
+              data={cancelledRequests}
+              actions={actions}
+            />
+          </div>
+        </li>
+      </ul>
       {["ClientUser", "ClientAdmin"].includes(role) && (
         <Fab icon="fa fa-plus" color="red" onClick={handleAdd} />
       )}
