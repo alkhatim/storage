@@ -94,21 +94,21 @@ export const Requests = (props) => {
         <li
           className={filter === "New" ? "active waves-effect" : "waves-effect"}
         >
-          <button onClick={() => setFilter("New")}>New</button>
+          <a onClick={() => setFilter("New")}>New</a>
         </li>
         <li
           className={
             filter === "Submitted" ? "active waves-effect" : "waves-effect"
           }
         >
-          <button onClick={() => setFilter("Submitted")}>Submitted</button>
+          <a onClick={() => setFilter("Submitted")}>Submitted</a>
         </li>
         <li
           className={
             filter === "Delivered" ? "active waves-effect" : "waves-effect"
           }
         >
-          <button onClick={() => setFilter("Delivered")}>Delivered</button>
+          <a onClick={() => setFilter("Delivered")}>Delivered</a>
         </li>
         <li
           className={
@@ -117,23 +117,23 @@ export const Requests = (props) => {
               : "waves-effect"
           }
         >
-          <button onClick={() => setFilter("Request Collection")}>
+          <a onClick={() => setFilter("Request Collection")}>
             Ready For Collection
-          </button>
+          </a>
         </li>
         <li
           className={
             filter === "Collected" ? "active waves-effect" : "waves-effect"
           }
         >
-          <button onClick={() => setFilter("Collected")}>Collected</button>
+          <a onClick={() => setFilter("Collected")}>Collected</a>
         </li>
         <li
           className={
             filter === "Cancelled" ? "active waves-effect" : "waves-effect"
           }
         >
-          <button onClick={() => setFilter("Cancelled")}>Cancelled</button>
+          <a onClick={() => setFilter("Cancelled")}>Cancelled</a>
         </li>
       </ul>
       <DataTable columns={columns} data={data} actions={actions} />
