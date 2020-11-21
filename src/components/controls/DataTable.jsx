@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import MaterialTable from "material-table";
 
 const DataTable = (props) => {
@@ -25,12 +24,6 @@ const DataTable = (props) => {
       {...props}
     />
   );
-};
-
-DataTable.propTypes = {
-  data: PropTypes.array.isRequired,
-  columns: PropTypes.array.isRequired,
-  actions: PropTypes.array,
 };
 
 export default DataTable;

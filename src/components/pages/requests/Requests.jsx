@@ -10,7 +10,7 @@ const getColor = (state) => {
     case "Submitted":
     case "Request Collection":
       return "lightblue";
-    case "Canceled":
+    case "Cancelled":
       return "lightred";
     default:
       return "";
@@ -37,11 +37,11 @@ const columns = [
     ),
   },
   { title: "Address", field: "address" },
+  { title: "Type", field: "type" },
 ];
 
 export const Requests = (props) => {
   const [requests, setRequests] = useState([]);
-  const [request, setRequest] = useState({});
 
   const role = useSelector((store) => store.authReducer.user.role);
 
@@ -62,7 +62,9 @@ export const Requests = (props) => {
       onClick: async (event, data) => {
         try {
           const response = await cancelRequest(data.id);
-          setRequest(response);
+          setRequests(
+            requests.map((req) => (req.id === response.id ? response : req))
+          );
         } catch (error) {
           messages.error(error);
         }
@@ -82,11 +84,56 @@ export const Requests = (props) => {
     props.history.push("/request");
   };
 
+  const newRequests = requests.filter((req) => req.state == "NEW");
+  const submittedRequests = requests.filter((req) => req.state == "Submitted");
+  const deliveredRequests = requests.filter((req) => req.state == "Delivered");
+  const readyRequests = requests.filter(
+    (req) => req.state == "Request Collection"
+  );
+  const collectedRequests = requests.filter((req) => req.state == "Collected");
+  const cancelledRequests = requests.filter((req) => req.state == "Cancelled");
+
   return (
     <Fragment>
-      <h4 className="ml-2">Requests</h4>
+      <h4 className="ml-2">New Requests</h4>
       <div className="ml-2 mt-3 mr-2">
-        <DataTable columns={columns} data={requests} actions={actions} />
+        <DataTable columns={columns} data={newRequests} actions={actions} />
+      </div>
+      <h4 className="ml-2">Submitted Requests</h4>
+      <div className="ml-2 mt-3 mr-2">
+        <DataTable
+          columns={columns}
+          data={submittedRequests}
+          actions={actions}
+        />
+      </div>
+      <h4 className="ml-2">Delivered Requests</h4>
+      <div className="ml-2 mt-3 mr-2">
+        <DataTable
+          columns={columns}
+          data={deliveredRequests}
+          actions={actions}
+        />
+      </div>
+      <h4 className="ml-2">Ready For Collection</h4>
+      <div className="ml-2 mt-3 mr-2">
+        <DataTable columns={columns} data={readyRequests} actions={actions} />
+      </div>
+      <h4 className="ml-2">Collected Requests</h4>
+      <div className="ml-2 mt-3 mr-2">
+        <DataTable
+          columns={columns}
+          data={collectedRequests}
+          actions={actions}
+        />
+      </div>
+      <h4 className="ml-2">Cancelled Requests</h4>
+      <div className="ml-2 mt-3 mr-2">
+        <DataTable
+          columns={columns}
+          data={cancelledRequests}
+          actions={actions}
+        />
       </div>
       {["ClientUser", "ClientAdmin"].includes(role) && (
         <Fab icon="fa fa-plus" color="red" onClick={handleAdd} />

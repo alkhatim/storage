@@ -7,12 +7,12 @@ import {
   collectRequest,
   requestCollection,
   submitRequest,
-  validateBox,
 } from "../../../actions/requestActions";
 import DataTable from "./../../controls/DataTable";
+import Fab from "./../../controls/Fab";
 import TextInput from "../../controls/TextInput";
-import messages from "../../../services/messages";
 import M from "materialize-css";
+import Dropdown from "../../controls/Dropdown";
 
 const columns = [
   { title: "Barcode", field: "box.barcode" },
@@ -27,10 +27,16 @@ export const Requests = (props) => {
     code: "",
     requestedDate: new Date().toISOString().split("T")[0],
     state: "New",
+    type: "",
     address: "",
+    createdOn: "",
+    deliveredOn: "",
     boxRequests: [],
     collectionTrips: "",
     deliveryTrips: "",
+  });
+  const [newBoxRequest, setNewBoxRequest] = useState({
+    box: {},
   });
 
   const role = useSelector((store) => store.authReducer.user.role);
@@ -70,6 +76,20 @@ export const Requests = (props) => {
 
   const handleChange = (e) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
+  };
+
+  const handleBoxRequestChange = (e) => {
+    setNewBoxRequest({
+      ...newBoxRequest,
+      box: { ...newBoxRequest.box, barcode: e.target.value },
+    });
+  };
+
+  const handleAddBoxRequest = async () => {
+    setRequest({
+      ...request,
+      boxRequests: [...request.boxRequests, newBoxRequest],
+    });
   };
 
   const handleUpdate = async () => {
@@ -218,6 +238,14 @@ export const Requests = (props) => {
             value={request.address}
             onChange={handleChange}
           />
+          <Dropdown
+            name="type"
+            label="Type"
+            data={["Urgent", "Normal"]}
+            readOnly={request.state !== "New"}
+            value={request.type}
+            onChange={handleChange}
+          />
           <label htmlFor="date">Requested Date</label>
           <input
             id="date"
@@ -255,6 +283,20 @@ export const Requests = (props) => {
               onChange={handleChange}
             />
           )}
+          <TextInput
+            type="text"
+            name="createdOn"
+            readOnly
+            label="Created On"
+            value={new Date(request.createdOn).toDateString()}
+          />
+          <TextInput
+            type="text"
+            name="deliveredOn"
+            readOnly
+            label="Delivered On"
+            value={new Date(request.deliveredOn).toDateString()}
+          />
         </div>
       </div>
       {request.id !== 0 && (
@@ -264,32 +306,34 @@ export const Requests = (props) => {
             columns={columns}
             data={request.boxRequests}
             actions={actions}
-            editable={{
-              onRowAdd: (newData) =>
-                new Promise(async (resolve, reject) => {
-                  try {
-                    const result = await validateBox({ barcode: newData });
-                    if (result.error) {
-                      messages.error(result.error);
-                      return resolve();
-                    }
-                    setRequest({
-                      ...request,
-                      boxRequests: [
-                        ...request.boxRequests,
-                        { barcode: newData, error: "" },
-                      ],
-                    });
-                    resolve();
-                  } catch (error) {
-                    messages.error(error);
-                    reject();
-                  }
-                }),
-            }}
           />
         </div>
       )}
+      <Fragment>
+        {["ClientUser", "ClientAdmin"].includes(role) && request.id !== 0 && (
+          <Fab icon="fa fa-plus" color="red" href="#addModal" />
+        )}
+        <div id="addModal" className="modal">
+          <div className="modal-content">
+            <h5 className="mb-2">New Box Request</h5>
+            <TextInput
+              type="text"
+              name="barcode"
+              label="Barcode"
+              value={newBoxRequest.box.barcode}
+              onChange={handleBoxRequestChange}
+            />
+          </div>
+          <div className="modal-footer">
+            <button
+              className="modal-close waves-effect waves-red btn-flat"
+              onClick={handleAddBoxRequest}
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </Fragment>
     </Fragment>
   );
 };
