@@ -90,7 +90,7 @@ export const Requests = (props) => {
   return (
     <Fragment>
       <h3>Request</h3>
-      <ul className="pagination">
+      <ul className="pagination" style={{ width: "100vw" }}>
         <li
           className={filter === "New" ? "active waves-effect" : "waves-effect"}
         >
