@@ -14,6 +14,7 @@ import Requests from "./components/pages/requests/Requests";
 import Warehouses from "./components/pages/warehouses/Warehouses";
 import Document from "./components/pages/documents/Document";
 import Documents from "./components/pages/documents/Documnets";
+import Settings from "./components/pages/settings/Settings";
 import Forbidden from "./components/pages/auth/Forbidden";
 import NotFound from "./components/pages/layouts/NotFound";
 import "react-toastify/dist/ReactToastify.css";
@@ -80,6 +81,12 @@ const App = () => {
             path="/document/:id"
             allow="All"
             component={Document}
+          />
+          <ProtectedRoute
+            exact
+            path="/settings"
+            allow={["Admin"]}
+            component={Settings}
           />
           <ProtectedRoute
             exact

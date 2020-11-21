@@ -74,6 +74,11 @@ export const Navbar = () => {
                     <Link to="/users">Users Managment</Link>
                   </li>
                 )}
+              {!isLoading && isLoggedIn && role === "Admin" && (
+                <li>
+                  <Link to="/settings">Settings</Link>
+                </li>
+              )}
               {!isLoading && !isLoggedIn && (
                 <li>
                   <Link to="/login">Login</Link>
@@ -83,9 +88,6 @@ export const Navbar = () => {
                 <img
                   src={defaultPic}
                   alt=""
-                  onClick={() => {
-                    history.push("/profile");
-                  }}
                   className="circle responsive-img dropdown-trigger img-40"
                   data-target="profile-dropdown"
                   style={{
@@ -102,6 +104,9 @@ export const Navbar = () => {
       {/* Profile Dropdown */}
       <ul className="dropdown-content" id="profile-dropdown">
         <li>
+          <Link to="/profile" onClick={() => history.push("/profile")}>
+            <i className="fa fa-user mr-1"></i>Profile
+          </Link>
           <Link to="/" onClick={handleLogOut}>
             <i className="fa fa-sign-out mr-1"></i>Log out
           </Link>
@@ -141,6 +146,22 @@ export const Navbar = () => {
             </Link>
           </li>
         )}
+        {!isLoading && isLoggedIn && role === "Admin" && (
+          <li>
+            <Link className="white-text" to="/settings">
+              Settings
+            </Link>
+          </li>
+        )}
+        {!isLoading &&
+          isLoggedIn &&
+          ["PartnerAdmin", "ClientAdmin", "Admin"].includes(role) && (
+            <li>
+              <Link className="white-text" to="/managment">
+                Users Managment
+              </Link>
+            </li>
+          )}
         {!isLoggedIn && !isLoading && (
           <li>
             <Link to="/login" className="white-text">
