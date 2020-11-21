@@ -90,35 +90,49 @@ export const Requests = (props) => {
   return (
     <Fragment>
       <ul className="pagination">
-        <li className="active">
-          <a href="#!" onClick={() => setFilter("New")}>
-            New
-          </a>
+        <li
+          className={filter === "New" ? "active waves-effect" : "waves-effect"}
+        >
+          <button onClick={() => setFilter("New")}>New</button>
         </li>
-        <li className="waves-effect">
-          <a href="#!" onClick={() => setFilter("Submitted")}>
-            Submitted
-          </a>
+        <li
+          className={
+            filter === "Submitted" ? "active waves-effect" : "waves-effect"
+          }
+        >
+          <button onClick={() => setFilter("Submitted")}>Submitted</button>
         </li>
-        <li className="waves-effect">
-          <a href="#!" onClick={() => setFilter("Delivered")}>
-            Delivered
-          </a>
+        <li
+          className={
+            filter === "Delivered" ? "active waves-effect" : "waves-effect"
+          }
+        >
+          <button onClick={() => setFilter("Delivered")}>Delivered</button>
         </li>
-        <li className="waves-effect">
-          <a href="#!" onClick={() => setFilter("Request Collection")}>
+        <li
+          className={
+            filter === "Request Collection"
+              ? "active waves-effect"
+              : "waves-effect"
+          }
+        >
+          <button onClick={() => setFilter("Request Collection")}>
             Ready For Collection
-          </a>
+          </button>
         </li>
-        <li className="waves-effect">
-          <a href="#!" onClick={() => setFilter("Collected")}>
-            Collected
-          </a>
+        <li
+          className={
+            filter === "Collected" ? "active waves-effect" : "waves-effect"
+          }
+        >
+          <button onClick={() => setFilter("Collected")}>Collected</button>
         </li>
-        <li className="waves-effect">
-          <a href="#!" onClick={() => setFilter("Cancelled")}>
-            Cancelled
-          </a>
+        <li
+          className={
+            filter === "Cancelled" ? "active waves-effect" : "waves-effect"
+          }
+        >
+          <button onClick={() => setFilter("Cancelled")}>Cancelled</button>
         </li>
       </ul>
       <DataTable columns={columns} data={data} actions={actions} />
