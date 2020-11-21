@@ -89,6 +89,7 @@ export const Requests = (props) => {
 
   return (
     <Fragment>
+      <h3>Request</h3>
       <ul className="pagination">
         <li
           className={filter === "New" ? "active waves-effect" : "waves-effect"}
