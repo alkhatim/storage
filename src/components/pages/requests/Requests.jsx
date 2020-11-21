@@ -4,7 +4,6 @@ import { getRequests, cancelRequest } from "../../../actions/requestActions";
 import DataTable from "./../../controls/DataTable";
 import Fab from "./../../controls/Fab";
 import messages from "../../../services/messages";
-import M from "materialize-css";
 
 const getColor = (state) => {
   switch (state) {
@@ -43,6 +42,7 @@ const columns = [
 
 export const Requests = (props) => {
   const [requests, setRequests] = useState([]);
+  const [filter, setFilter] = useState("New");
 
   const role = useSelector((store) => store.authReducer.user.role);
 
@@ -75,8 +75,6 @@ export const Requests = (props) => {
 
   useEffect(() => {
     const fetch = async () => {
-      // const modal = document.querySelectorAll(".collapsible");
-      // M.Collapsible.init(modal, {});
       const data = await getRequests();
       setRequests(data);
     };
@@ -87,81 +85,43 @@ export const Requests = (props) => {
     props.history.push("/request");
   };
 
-  const newRequests = requests.filter((req) => req.state == "NEW");
-  const submittedRequests = requests.filter((req) => req.state == "Submitted");
-  const deliveredRequests = requests.filter((req) => req.state == "Delivered");
-  const readyRequests = requests.filter(
-    (req) => req.state == "Request Collection"
-  );
-  const collectedRequests = requests.filter((req) => req.state == "Collected");
-  const cancelledRequests = requests.filter((req) => req.state == "Cancelled");
+  const data = requests.filter((req) => req.state === filter);
 
   return (
     <Fragment>
-      <DataTable columns={columns} data={newRequests} actions={actions} />
-      <DataTable columns={columns} data={submittedRequests} actions={actions} />
-      <DataTable columns={columns} data={deliveredRequests} actions={actions} />
-      <DataTable columns={columns} data={readyRequests} actions={actions} />
-      <DataTable columns={columns} data={collectedRequests} actions={actions} />
-      <DataTable columns={columns} data={cancelledRequests} actions={actions} />
-      {/* <ul className="collapsible">
-        <li>
-          <div className="collapsible-header">New Requests</div>
-          <div className="collapsible-body">
-            <DataTable columns={columns} data={newRequests} actions={actions} />
-          </div>
+      <ul className="pagination">
+        <li className="active">
+          <a href="#!" onClick={() => setFilter("New")}>
+            New
+          </a>
         </li>
-        <li>
-          <div className="collapsible-header">Submitted Requests</div>
-          <div className="collapsible-body">
-            <DataTable
-              columns={columns}
-              data={submittedRequests}
-              actions={actions}
-            />
-          </div>
+        <li className="waves-effect">
+          <a href="#!" onClick={() => setFilter("Submitted")}>
+            Submitted
+          </a>
         </li>
-        <li>
-          <div className="collapsible-header">Delivered Requests</div>
-          <div className="collapsible-body">
-            <DataTable
-              columns={columns}
-              data={deliveredRequests}
-              actions={actions}
-            />
-          </div>
+        <li className="waves-effect">
+          <a href="#!" onClick={() => setFilter("Delivered")}>
+            Delivered
+          </a>
         </li>
-        <li>
-          <div className="collapsible-header">Ready For Collection</div>
-          <div className="collapsible-body">
-            <DataTable
-              columns={columns}
-              data={readyRequests}
-              actions={actions}
-            />
-          </div>
+        <li className="waves-effect">
+          <a href="#!" onClick={() => setFilter("Request Collection")}>
+            Ready For Collection
+          </a>
         </li>
-        <li>
-          <div className="collapsible-header">Collected Requests</div>
-          <div className="collapsible-body">
-            <DataTable
-              columns={columns}
-              data={collectedRequests}
-              actions={actions}
-            />
-          </div>
+        <li className="waves-effect">
+          <a href="#!" onClick={() => setFilter("Collected")}>
+            Collected
+          </a>
         </li>
-        <li>
-          <div className="collapsible-header">Cancelled Requests</div>
-          <div className="collapsible-body">
-            <DataTable
-              columns={columns}
-              data={cancelledRequests}
-              actions={actions}
-            />
-          </div>
+        <li className="waves-effect">
+          <a href="#!" onClick={() => setFilter("Cancelled")}>
+            Cancelled
+          </a>
         </li>
-      </ul> */}
+      </ul>
+      <DataTable columns={columns} data={data} actions={actions} />
       {["ClientUser", "ClientAdmin"].includes(role) && (
         <Fab icon="fa fa-plus" color="red" onClick={handleAdd} />
       )}
