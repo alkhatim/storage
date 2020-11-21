@@ -7,12 +7,14 @@ import {
   collectRequest,
   requestCollection,
   submitRequest,
+  validateBox,
 } from "../../../actions/requestActions";
 import DataTable from "./../../controls/DataTable";
 import Fab from "./../../controls/Fab";
 import TextInput from "../../controls/TextInput";
 import M from "materialize-css";
 import Dropdown from "../../controls/Dropdown";
+import messages from "../../../services/messages";
 
 const columns = [
   { title: "Barcode", field: "box.barcode" },
@@ -86,9 +88,16 @@ export const Requests = (props) => {
   };
 
   const handleAddBoxRequest = async () => {
+    const result = await validateBox(newBoxRequest);
+    if (result.error) {
+      return messages.error(result.error);
+    }
     setRequest({
       ...request,
-      boxRequests: [...request.boxRequests, newBoxRequest],
+      boxRequests: [
+        ...request.boxRequests,
+        { barcode: newBoxRequest, error: "" },
+      ],
     });
   };
 
