@@ -88,7 +88,7 @@ export const Requests = (props) => {
   const data = requests.filter((req) => req.state === filter);
 
   return (
-    <Fragment>
+    <div style={{ padding: 20 }}>
       <h3>Request</h3>
       <ul className="pagination" style={{ width: "100vw" }}>
         <li
@@ -140,7 +140,7 @@ export const Requests = (props) => {
       {["ClientUser", "ClientAdmin"].includes(role) && (
         <Fab icon="fa fa-plus" color="red" onClick={handleAdd} />
       )}
-    </Fragment>
+    </div>
   );
 };
 

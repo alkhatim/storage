@@ -34,7 +34,12 @@ export const Navbar = () => {
     <Fragment>
       {/* Fixed Nav */}
       <div className="navbar-fixed">
-        <nav className="red darken-2 z-depth-2">
+        <nav
+          className="red darken-2 z-depth-2"
+          style={{
+            position: "absolute",
+          }}
+        >
           <div className="nav-wrapper ml-4 mr-2">
             <Link to="/" className="brand-logo">
               <i className="fa fa-hdd-o app-icon" />
@@ -44,18 +49,6 @@ export const Navbar = () => {
               <i className="material-icons">menu</i>
             </a>
             <ul className="right hide-on-med-and-down">
-              <li className={isLoggedIn ? "" : "hide"}>
-                <img
-                  src={defaultPic}
-                  alt=""
-                  className="circle responsive-img dropdown-trigger img-40"
-                  data-target="profile-dropdown"
-                  style={{
-                    marginTop: "0.75rem",
-                    marginLeft: "0.4rem",
-                  }}
-                />
-              </li>
               {!isLoading && isLoggedIn && ["Admin"].includes(role) && (
                 <li>
                   <Link to="/dashboard">Dashboard</Link>
@@ -96,6 +89,18 @@ export const Navbar = () => {
                   <Link to="/login">Login</Link>
                 </li>
               )}
+              <li className={isLoggedIn ? "" : "hide"}>
+                <img
+                  src={defaultPic}
+                  alt=""
+                  className="circle responsive-img dropdown-trigger img-40"
+                  data-target="profile-dropdown"
+                  style={{
+                    marginTop: "0.75rem",
+                    marginLeft: "0.4rem",
+                  }}
+                />
+              </li>
             </ul>
           </div>
         </nav>

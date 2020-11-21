@@ -30,6 +30,52 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <div
+          className="psp-header bg-dark"
+          style={{
+            paddingTop: "0.5rem",
+            backgroundColor: "#343a40",
+            paddingBottom: "0.5rem",
+            height: 160,
+          }}
+        >
+          <div
+            className="psp-header-right"
+            style={{
+              float: "left",
+              padding: "2rem 2rem 2rem 2rem",
+            }}
+          >
+            <a
+              style={{
+                float: "right",
+                textAlign: "center",
+                textDecoration: "none",
+              }}
+              href="https://www.malomatia.com/technology-services/#digitization"
+              target="_blank"
+            >
+              <img
+                src="https://localhost:44340/Images/Malomatia_logo.svg"
+                style={{ marginLeft: "1rem" }}
+                height="90"
+                alt="Malomatia Logo"
+              />
+            </a>
+          </div>
+          <a
+            style={{
+              float: "right",
+            }}
+          >
+            <img
+              src="https://localhost:44340/Images/mme_logo_arabic.png"
+              height="120"
+              style={{ marginTop: "1rem", marginRight: "2rem" }}
+              alt="Physical Storage Portal Logo"
+            />
+          </a>
+        </div>
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -97,6 +143,36 @@ const App = () => {
           <Route exact path="/forbidden" component={Forbidden} />
           <Route component={NotFound} />
         </Switch>
+        <footer class="d-none d-sm-none d-md-block">
+          <div
+            class="copyright text-left"
+            style={{
+              padding: "20px",
+              backgroundColor: "#cf112b",
+            }}
+          >
+            <div
+              class="container"
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <span style={{ color: "#ddd" }}>Copyright © 2020</span>{" "}
+              <a
+                style={{
+                  color: "white",
+                  padding: "0 20px",
+                }}
+                href="https://www.malomatia.com/technology-services/#digitization"
+                target="_blank"
+              >
+                {" "}
+                Malomatia, Digitization &amp; ECM
+              </a>
+            </div>
+          </div>
+        </footer>
       </BrowserRouter>
       <ToastContainer pauseOnFocusLoss={false} />
     </Provider>
