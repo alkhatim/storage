@@ -42,7 +42,7 @@ const columns = [
 
 export const Requests = (props) => {
   const [requests, setRequests] = useState([]);
-  const [filter, setFilter] = useState("New");
+  const [filter, setFilter] = useState("");
 
   const role = useSelector((store) => store.authReducer.user.role);
 
@@ -89,13 +89,17 @@ export const Requests = (props) => {
 
   return (
     <Fragment>
-      <h3>Request</h3>
-      <ul className="pagination" style={{ width: "100vw" }}>
-        <li
-          className={filter === "New" ? "active waves-effect" : "waves-effect"}
-        >
-          <a onClick={() => setFilter("New")}>New</a>
-        </li>
+      <h3>Requests</h3>
+      <ul className="pagination" style={{ width: "100%" }}>
+        {["ClientUser", "ClientAdmin", "Admin"].includes(role) && (
+          <li
+            className={
+              filter === "New" ? "active waves-effect" : "waves-effect"
+            }
+          >
+            <a onClick={() => setFilter("New")}>New</a>
+          </li>
+        )}
         <li
           className={
             filter === "Submitted" ? "active waves-effect" : "waves-effect"
