@@ -70,12 +70,22 @@ export const Requests = (props) => {
       reader.onload = (e) => {
         const workbook = XLSX.read(reader.result, { type: "binary" });
         const firstSheet = workbook.SheetNames[0];
-        const excelRows = XLSX.utils.sheet_to_row_object_array(
+        let excelRows = XLSX.utils.sheet_to_row_object_array(
           workbook.Sheets[firstSheet]
+        );
+        excelRows = excelRows.slice(1, -1);
+        console.log(
+          excelRows.map((row) => ({
+            boxBarcode: row.__EMPTY_1,
+            fileBarcode: row.__EMPTY_4,
+          }))
         );
         setNewUpload({
           ...newUpload,
-          documents: excelRows.map((row) => row.Barcode),
+          documents: excelRows.map((row) => ({
+            boxBarcode: row.__EMPTY,
+            fileBarcode: row.__EMPTY_4,
+          })),
         });
       };
       reader.readAsBinaryString(file);

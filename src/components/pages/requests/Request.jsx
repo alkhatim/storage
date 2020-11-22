@@ -195,6 +195,7 @@ export const Requests = (props) => {
             <i className="fa fa-floppy-o fa-2x ml-1" />
           </button>
           {request.state === "New" &&
+            request.id !== 0 &&
             ["ClientUser", "ClientAdmin", "Admin"].includes(role) && (
               <button
                 className="waves-effect waves-light btn"
