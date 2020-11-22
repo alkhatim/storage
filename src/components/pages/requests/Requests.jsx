@@ -42,7 +42,7 @@ const columns = [
 
 export const Requests = (props) => {
   const [requests, setRequests] = useState([]);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState("New");
 
   const role = useSelector((store) => store.authReducer.user.role);
 

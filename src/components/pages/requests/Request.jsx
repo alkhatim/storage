@@ -159,6 +159,8 @@ export const Requests = (props) => {
       break;
   }
 
+  M.updateTextFields();
+
   return (
     <Fragment>
       <div
@@ -236,7 +238,7 @@ export const Requests = (props) => {
       </div>
       <div
         className="mt-2 ml-2"
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+        style={{ display: "grid", gridTemplateColumns: "3fr 1fr 3fr 1fr" }}
       >
         <div>
           <TextInput
@@ -250,8 +252,8 @@ export const Requests = (props) => {
           <Dropdown
             name="type"
             label="Type"
+            disabled={request.state !== "New"}
             data={["Urgent", "Normal"]}
-            readOnly={request.state !== "New"}
             value={request.type}
             onChange={handleChange}
           />
@@ -267,16 +269,14 @@ export const Requests = (props) => {
             />
           </Fragment>
         </div>
+        <div></div>
         <div>
           {request.state !== "New" && (
             <TextInput
               type="text"
               name="deliveryTrips"
               label="Number Of Delivery Trips"
-              readOnly={
-                request.state !== "Submitted" &&
-                ["PartnerUser", "PartnerAdmin", "Admin"].includes(role)
-              }
+              readOnly
               value={request.deliveryTrips}
               onChange={handleChange}
             />
@@ -313,6 +313,7 @@ export const Requests = (props) => {
             />
           )}
         </div>
+        <div></div>
       </div>
       {request.id !== 0 && (
         <div className="ml-2 mt-3 mr-2">
