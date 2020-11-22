@@ -46,5 +46,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:52224/api"
+  "proxy": "http://physicalstoragetest.azurewebsites.net/api"
 }

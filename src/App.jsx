@@ -143,7 +143,7 @@ const App = () => {
           <Route exact path="/forbidden" component={Forbidden} />
           <Route component={NotFound} />
         </Switch>
-        <footer class="d-none d-sm-none d-md-block">
+        {/* <footer class="d-none d-sm-none d-md-block">
           <div
             class="copyright text-left"
             style={{
@@ -172,7 +172,7 @@ const App = () => {
               </a>
             </div>
           </div>
-        </footer>
+        </footer> */}
       </BrowserRouter>
       <ToastContainer pauseOnFocusLoss={false} />
     </Provider>
