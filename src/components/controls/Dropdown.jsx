@@ -9,16 +9,18 @@ const Dropdown = (props) => {
   M.FormSelect.init(dropdown, {});
 
   return (
-    <div className="input-field">
-      <select {...props}>
-        <option value=""></option>
-        {data.map((item) => (
-          <option key={item} value={item}>
-            {item}
-          </option>
-        ))}
-      </select>
-      <label>{label}</label>
+    <div className="row">
+      <div className="input-field">
+        <select {...props}>
+          <option value=""></option>
+          {data.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+        <label>{label}</label>
+      </div>
     </div>
   );
 };

@@ -236,7 +236,7 @@ export const Requests = (props) => {
       </div>
       <div
         className="mt-2 ml-2"
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
       >
         <div>
           <TextInput
@@ -255,15 +255,17 @@ export const Requests = (props) => {
             value={request.type}
             onChange={handleChange}
           />
-          <label htmlFor="date">Requested Date</label>
-          <input
-            id="date"
-            type="date"
-            readOnly={request.state !== "New"}
-            name="requestedDate"
-            onChange={handleChange}
-            value={request.requestedDate}
-          />
+          <Fragment>
+            <label htmlFor="date">Requested Date</label>
+            <input
+              id="date"
+              type="date"
+              readOnly={request.state !== "New"}
+              name="requestedDate"
+              onChange={handleChange}
+              value={request.requestedDate}
+            />
+          </Fragment>
         </div>
         <div>
           {request.state !== "New" && (
@@ -292,20 +294,24 @@ export const Requests = (props) => {
               onChange={handleChange}
             />
           )}
-          <TextInput
-            type="text"
-            name="createdOn"
-            readOnly
-            label="Created On"
-            value={new Date(request.createdOn).toDateString()}
-          />
-          <TextInput
-            type="text"
-            name="deliveredOn"
-            readOnly
-            label="Delivered On"
-            value={new Date(request.deliveredOn).toDateString()}
-          />
+          {request.createdOn && (
+            <TextInput
+              type="text"
+              name="createdOn"
+              readOnly
+              label="Created On"
+              value={new Date(request.createdOn).toDateString()}
+            />
+          )}
+          {request.deliveredOn && (
+            <TextInput
+              type="text"
+              name="deliveredOn"
+              readOnly
+              label="Delivered On"
+              value={new Date(request.deliveredOn).toDateString()}
+            />
+          )}
         </div>
       </div>
       {request.id !== 0 && (
